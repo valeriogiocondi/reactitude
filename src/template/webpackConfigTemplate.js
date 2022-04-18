@@ -1,4 +1,4 @@
-const { replaceAll } = require('./utils');
+const { replaceAll } = require('../utils');
 
 let webpackConfigObject = {
   entry: {

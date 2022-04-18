@@ -2,9 +2,9 @@ const path = require('path');
 const { chdir:chdir } = require('process'); 
 
 const { execCmd, writeFile } = require('./utils');
-const webpackConfig = require('./webpackConfigTemplate');
-const typescriptConfig = require('./typescriptConfigTemplate');
-const babelPresets = require('./babelPresetsTemplate');
+const webpackConfig = require('./template/webpackConfigTemplate');
+const typescriptConfig = require('./template/typescriptConfigTemplate');
+const babelPresets = require('./template/babelPresetsTemplate');
 
 const DIRNAME = './app';
 const WEBPACK_CONFIG_FILE_PATH = './webpack.config.js';
