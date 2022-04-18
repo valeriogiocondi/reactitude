@@ -1,0 +1,15 @@
+{
+  "name": "reactitude",
+  "version": "1.0.0",
+  "author": "Valerio Giocondi",
+  "description": "React CLI",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0"
+  }
+}
