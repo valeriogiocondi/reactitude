@@ -1,0 +1,21 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+#
+#   v 1.2
+#
+
+# dependencies
+**/package-lock.json
+**/node_modules
+**/.pnp
+**/.pnp.js
+
+# output app
+/app
+
+# script bash
+**/*.sh
+
+# misc
+**/.DS_Store
+**/*.code-workspace

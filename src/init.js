@@ -3,6 +3,7 @@ const { chdir:chdir } = require('process');
 
 const { execCmd, writeFile } = require('./utils');
 const webpackConfig = require('./webpackConfigTemplate');
+const typescriptConfig = require('./typescriptConfigTemplate');
 const babelPresets = require('./babelPresetsTemplate');
 
 const DIRNAME = './app';
@@ -66,11 +67,7 @@ exports.install = async () => {
   await execCmd('npm i less less-loader --save');
   webpackConfig.addLessLoader();
   
-  // # sass
-  // await execCmd('npm i sass sass-loader --save');
-  // webpackConfig.addSassLoader();
-
   writeFile(WEBPACK_CONFIG_FILE_PATH, webpackConfig.getTemplate());
+  writeFile(TS_CONFIG_FILE_PATH, typescriptConfig.getTemplate());
   writeFile(BABEL_PRESETS_FILE_PATH, babelPresets.getTemplate());
-  writeFile(TS_CONFIG_FILE_PATH, JSON.stringify(tsConfigObject, null, 2));
 };
