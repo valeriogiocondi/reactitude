@@ -20,6 +20,15 @@ Further on the CLI will respond to commands to generate:
 * GraphQL Schema
 
 
-## 3. License
+# Getting Started
+
+## Create basic architecture
+```
+node ./src/index.js;
+```
+
+
+
+# License
 
 Reactitude is open source software [licensed as MIT](https://github.com/valeriogiocondi/reactitude/blob/master/LICENSE). 
