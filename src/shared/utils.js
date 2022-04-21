@@ -45,18 +45,39 @@ const replaceAll = (str, searcher, replacer) => {
   return str;
 };
 
+const makeDirectory = (path, options={ recursive: true }, sync=true) => {
+
+  if (sync) {
+    fs.mkdirSync(path, options);
+    return;
+  }
+  
+  fs.mkdir(path, content);
+};
+
 const writeFile = (path, content, sync=true) => {
 
   if (sync) {
-    console.log('test')
     fs.writeFileSync(path, content);
-    return
+    return;
   }
   
   fs.writeFile(path, content);
 };
 
+const copyFile = (src, dest, sync=true) => {
+
+  if (sync) {
+    fs.copyFileSync(src, dest, fs.constants.COPYFILE_EXCL);
+    return;
+  }
+  
+  fs.copyFile(path, content);
+};
+
 
 exports.execCmd = execute;
 exports.replaceAll = replaceAll;
+exports.makeDirectory = makeDirectory;
 exports.writeFile = writeFile;
+exports.copyFile = copyFile;

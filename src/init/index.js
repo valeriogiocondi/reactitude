@@ -1,10 +1,10 @@
 const path = require('path'); 
 const { chdir:chdir } = require('process'); 
 
-const { execCmd, writeFile } = require('./utils');
-const webpackConfig = require('./template/webpackConfigTemplate');
-const typescriptConfig = require('./template/typescriptConfigTemplate');
-const babelPresets = require('./template/babelPresetsTemplate');
+const { execCmd, makeDirectory, writeFile, copyFile } = require('../shared/utils');
+const webpackConfig = require('./templates/webpackConfigTemplate');
+const typescriptConfig = require('./templates/typescriptConfigTemplate');
+const babelPresets = require('./templates/babelPresetsTemplate');
 
 const DIRNAME = './app';
 const WEBPACK_CONFIG_FILE_PATH = './webpack.config.js';
@@ -12,9 +12,11 @@ const TS_CONFIG_FILE_PATH = './tsconfig.json';
 const BABEL_PRESETS_FILE_PATH = './.babelrc';
 
 exports.install = async () => {
-
+  
   // # init
+  makeDirectory(DIRNAME);
   chdir(DIRNAME);
+
   await execCmd('pwd');
   await execCmd('npm init -y');
 
@@ -39,6 +41,8 @@ exports.install = async () => {
   await execCmd('npm i react --save');
   await execCmd('npm i react-dom --save');
   
+  // # OPTIONAL MODULES
+
   // # react-router
   await execCmd('npm i react-router --save');
   await execCmd('npm i react-router-dom --save');
@@ -67,7 +71,19 @@ exports.install = async () => {
   await execCmd('npm i less less-loader --save');
   webpackConfig.addLessLoader();
   
+
+  // build init architecture
+  makeDirectory('dist');
+  makeDirectory('src');
+
+  copyFile(path.resolve(__dirname, 'templates/init_components/index.tsx'), path.resolve(__dirname, '../../', DIRNAME, 'src/index.tsx'));
+  copyFile(path.resolve(__dirname, 'templates/init_components/index.html'), path.resolve(__dirname, '../../', DIRNAME, 'src/index.html'));
+  
   writeFile(WEBPACK_CONFIG_FILE_PATH, webpackConfig.getTemplate());
   writeFile(TS_CONFIG_FILE_PATH, typescriptConfig.getTemplate());
   writeFile(BABEL_PRESETS_FILE_PATH, babelPresets.getTemplate());
+  
+  // await execCmd('npm run build:dev');
+  // await execCmd('npm run dev');
+  // await execCmd(`kill-server ${webpackConfig.getPort()}`);
 };

@@ -1,7 +1,7 @@
 const path = require('path');
 
 // import install from './init';
-const { install } = require('./init.js');
+const { install } = require('./init/index.js');
 
 // DIRNAME = process.cwd().split('/').pop();
 

@@ -1,4 +1,4 @@
-const { replaceAll } = require('../utils');
+const { replaceAll } = require('../../shared/utils');
 
 let webpackConfigObject = {
   entry: {
@@ -39,14 +39,6 @@ exports.addBabelLoader = () => {
 
 exports.addTypescriptLoader = () => {
 
-  // webpackConfigObject.module.rules.push(
-  //   {
-  //     test: `${/\.ts?$/}`,
-  //     use: 'ts-loader',
-  //     exclude: `${/node_modules/}`,
-  //   }
-  // );
-
   webpackConfigObject.resolve.extensions.push('.ts');
   webpackConfigObject.resolve.extensions.push('.tsx');
 };
@@ -65,17 +57,18 @@ exports.addLessLoader = () => {
 
 exports.addSassLoader = () => {
 
-  // webpackConfigObject.module.rules.add({
-  //     test: /\.sass$/i,
-  //     use: [
-  //       // compiles Sass to CSS
-  //       "style-loader",
-  //       "css-loader",
-  //       "sass-loader",
-  //     ],
-  //   }
-  // );
+  webpackConfigObject.module.rules.add({
+      test: /\.sass$/i,
+      use: [
+        "style-loader",
+        "css-loader",
+        "sass-loader",
+      ],
+    }
+  );
 };
+
+exports.getPort = () => webpackConfigObject.devServer.port;
 
 exports.getTemplate = () => {
 
