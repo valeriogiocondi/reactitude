@@ -25,6 +25,9 @@ Further on the CLI will respond to commands to generate:
 ## Create basic architecture
 ```
 node ./src/index.js;
+cd ./app;
+npm run build:dev;
+npm run dev;
 ```
 
 
