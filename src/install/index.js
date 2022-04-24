@@ -25,6 +25,7 @@ exports.install = async () => {
   await execCmd('npm i webpack --save-dev');
   await execCmd('npm i webpack-dev-server --save-dev');
   await execCmd('npm i webpack-cli --save-dev');
+  await execCmd('npm i html-webpack-plugin --save-dev');
 
   // setting npm run dev as webpack-dev-server inside package.json
   await execCmd('npm set-script dev webpack-dev-server');  
