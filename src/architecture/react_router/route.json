@@ -1,0 +1,23 @@
+[
+  {
+    "path": "/",
+    "component": {
+      "name": "Home",
+      "path": "../_view/home/Home"
+    }
+  },
+  {
+    "path": "/foo",
+    "component": {
+      "name": "Foo",
+      "path": "../_view/foo/Foo"
+    }
+  },
+  {
+    "path": "*",
+    "component": {
+      "name": "Page404",
+      "path": "../_view/error-404/Error404"
+    }
+  }
+]

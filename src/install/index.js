@@ -1,21 +1,15 @@
 const path = require('path'); 
-const { chdir:chdir } = require('process'); 
 
-const { execCmd, makeDirectory, writeFile, copyFile } = require('../shared/utils');
+const { execCmd, writeFile } = require('../shared/utils');
 const webpackConfig = require('./templates/webpackConfigTemplate');
 const typescriptConfig = require('./templates/typescriptConfigTemplate');
 const babelPresets = require('./templates/babelPresetsTemplate');
 
-const DIRNAME = './app';
 const WEBPACK_CONFIG_FILE_PATH = './webpack.config.js';
 const TS_CONFIG_FILE_PATH = './tsconfig.json';
 const BABEL_PRESETS_FILE_PATH = './.babelrc';
 
 exports.install = async () => {
-  
-  // # init
-  makeDirectory(DIRNAME);
-  chdir(DIRNAME);
 
   await execCmd('pwd');
   await execCmd('npm init -y');
@@ -34,8 +28,8 @@ exports.install = async () => {
 
   // setting npm run dev as webpack-dev-server inside package.json
   await execCmd('npm set-script dev webpack-dev-server');  
-  await execCmd('npm set-script build:dev webpack --mode=’development’');
-  await execCmd('npm set-script build:prod webpack --mode=’production’');
+  await execCmd(`npm set-script build:dev webpack --mode='development'`);
+  await execCmd(`npm set-script build:prod webpack --mode='production'`);
 
   // # react
   await execCmd('npm i react --save');
@@ -62,28 +56,21 @@ exports.install = async () => {
   await execCmd('npm i @types/react-redux --save');
   await execCmd('npm i @types/react-router-dom --save');
   await execCmd('npm i @babel/preset-typescript --save-dev');
+  webpackConfig.addTypescriptLoader();
   babelPresets.addPreset('@babel/preset-typescript');
   
   // # jwt
   await execCmd('npm i jsonwebtoken --save');
   
+  // # css
+  await execCmd('npm i style-loader --save');
+  await execCmd('npm i css-loader --save');
+
   // # less
   await execCmd('npm i less less-loader --save');
   webpackConfig.addLessLoader();
   
-
-  // build init architecture
-  makeDirectory('dist');
-  makeDirectory('src');
-
-  copyFile(path.resolve(__dirname, 'templates/init_components/index.tsx'), path.resolve(__dirname, '../../', DIRNAME, 'src/index.tsx'));
-  copyFile(path.resolve(__dirname, 'templates/init_components/index.html'), path.resolve(__dirname, '../../', DIRNAME, 'src/index.html'));
-  
   writeFile(WEBPACK_CONFIG_FILE_PATH, webpackConfig.getTemplate());
   writeFile(TS_CONFIG_FILE_PATH, typescriptConfig.getTemplate());
   writeFile(BABEL_PRESETS_FILE_PATH, babelPresets.getTemplate());
-  
-  // await execCmd('npm run build:dev');
-  // await execCmd('npm run dev');
-  // await execCmd(`kill-server ${webpackConfig.getPort()}`);
 };

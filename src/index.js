@@ -1,11 +1,23 @@
 const path = require('path');
+const { makeDirectory } = require('./shared/utils');
+const { chdir:chdir } = require('process'); 
 
-// import install from './init';
-const { install } = require('./init/index.js');
+const { install } = require('./install');
+const { architecture } = require('./architecture'); 
 
 // DIRNAME = process.cwd().split('/').pop();
+const DIRNAME = './app';
 
-// execute('cd ./' + DIRNAME);
+// init
+makeDirectory(DIRNAME);
+chdir(DIRNAME);
+
+// install webpack and packages
 install();
-// execute('npm set-script dev webpack-dev-server --save-dev');  
-// execute('npm run dev');
+
+// create basic architecture
+architecture(DIRNAME);
+  
+// await execCmd('npm run build:dev');
+// await execCmd('npm run dev');
+// await execCmd(`kill-server ${webpackConfig.getPort()}`);
